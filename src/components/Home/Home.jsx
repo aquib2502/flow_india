@@ -13,6 +13,7 @@ import Footer from '../Layout/Footer';
 import EnhancedAboutSection from './AboutSection';
 import FlowIndiaAboutSection from './AboutSection';
 import ProjectsSection from './ProjectsSection';
+import HeroSection from './HeroSection';
 
 // Mock Data
 const mockData = {
@@ -154,101 +155,16 @@ const Home = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="min-h-screen flex flex-col justify-center items-center px-6 sm:px-8 lg:px-10 pt-40 pb-20 bg-gradient-to-b from-amber-50 via-white to-slate-50 relative overflow-hidden">
-        {/* Floating Background */}
-        <motion.div
-          className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full pointer-events-none opacity-50 bg-[radial-gradient(circle,rgba(251,191,36,0.15)_0%,transparent_70%)]"
-          animate={{
-            x: [0, -50, 0],
-            y: [0, -50, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-
-        <motion.div
-          className="max-w-4xl text-center z-10"
-          initial="hidden"
-          animate="visible"
-          variants={fadeInUp}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.div
-            className="inline-block px-5 py-2 bg-slate-900 text-white text-xs font-semibold tracking-[1.5px] uppercase mb-6 shadow-lg"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            Climate Control & MEP Experts
-          </motion.div>
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6 text-slate-900 tracking-tight">
-            Engineering Excellence
-            <br />
-            <span className="bg-gradient-to-r from-slate-700 via-amber-600 to-amber-700 bg-clip-text text-transparent">
-              For Modern Infrastructure
-            </span>
-          </h1>
-          <p className="text-base sm:text-lg lg:text-xl leading-relaxed text-slate-600 max-w-3xl mx-auto mb-10">
-            Delivering precision-engineered HVAC, electrical, plumbing, and fire protection solutions
-            across commercial, industrial, and government sectors.
-          </p>
-          <motion.div
-            className="flex gap-4 justify-center items-center flex-wrap"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-          >
-            <Button
-              className="bg-slate-900 text-white border-none px-8 py-6 text-sm font-semibold inline-flex items-center gap-2 transition-all duration-300 hover:bg-slate-800 hover:shadow-xl hover:-translate-y-0.5 h-auto rounded-sm shadow-lg"
-              onClick={() => scrollToSection('contact')}
-            >
-              Start Your Project
-              <ChevronRight size={18} />
-            </Button>
-            <Button
-              className="text-slate-900 border-2 border-slate-900 bg-transparent px-8 py-6 text-sm font-semibold transition-all duration-300 hover:bg-slate-900 hover:text-white hover:shadow-xl h-auto rounded-sm"
-              onClick={() => scrollToSection('services')}
-            >
-              Explore Services
-            </Button>
-          </motion.div>
-        </motion.div>
-
-        {/* Stats */}
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10 mt-20 max-w-6xl w-full"
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
-        >
-          {mockData.stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              className="text-center p-8 bg-white border border-slate-200 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-              variants={fadeInUp}
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <div className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-amber-600 to-amber-700 bg-clip-text text-transparent mb-2">
-                {stat.value}
-              </div>
-              <div className="text-sm text-slate-600 font-medium">{stat.label}</div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </section>
+      <HeroSection />
 
       {/* About Section */}
-          <FlowIndiaAboutSection />
+      <FlowIndiaAboutSection />
 
       {/* Services Section */}
       <PremiumServicesSection />
 
       {/* Projects Section */}
-   <ProjectsSection />
+      <ProjectsSection />
 
       {/* Trust Section */}
       <section className="py-24 lg:py-32 bg-slate-900 text-white">

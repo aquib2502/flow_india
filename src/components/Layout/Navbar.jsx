@@ -3,13 +3,15 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Sparkles } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
+
 
 const Navbar = ({ forceWhite = false }) => {
   const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('');
+  const pathname = usePathname();
+
   const [hoveredItem, setHoveredItem] = useState(null);
 
   useEffect(() => {
@@ -47,7 +49,6 @@ const Navbar = ({ forceWhite = false }) => {
     { id: 'home', label: 'Home', href: '/', isLink: true },
     { id: 'story', label: 'Our Story', href: '/aboutus', isLink: true },
     { id: 'services', label: 'Services', href: '/services', isLink: true },
-    { id: 'contact', label: 'Contact Us', href: '/contact', isLink: true }
   ];
 
   return (
@@ -121,7 +122,7 @@ const Navbar = ({ forceWhite = false }) => {
                   )}
 
                   {/* Active/Hover Indicator */}
-                  <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] bg-gradient-to-r from-amber-600 to-amber-700 rounded-full transition-all duration-200 ${activeSection === item.id || hoveredItem === item.id ? 'w-[60%]' : 'w-0'
+                  <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] bg-gradient-to-r from-amber-600 to-amber-700 rounded-full transition-all duration-200 ${pathname === item.href || hoveredItem === item.id ? 'w-[60%]' : 'w-0'
                     }`} />
 
                   {/* Text */}
@@ -142,7 +143,7 @@ const Navbar = ({ forceWhite = false }) => {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
               >
-                Get Started →
+                Contact Us →
               </motion.button>
             </div>
 
@@ -194,7 +195,7 @@ const Navbar = ({ forceWhite = false }) => {
                   <motion.button
                     key={item.id}
                     onClick={() => handleNavigation(item)}
-                    className={`w-full px-4 py-3 text-left text-[15px] font-semibold rounded-lg transition-colors duration-200 ${activeSection === item.id
+                    className={`w-full px-4 py-3 text-left text-[15px] font-semibold rounded-lg transition-colors duration-200 ${pathname === item.href
                       ? 'bg-gradient-to-r from-amber-50 to-amber-100/80 text-amber-700'
                       : 'text-slate-700 hover:bg-amber-50/60'
                       }`}
@@ -205,7 +206,7 @@ const Navbar = ({ forceWhite = false }) => {
                     whileTap={{ scale: 0.98 }}
                   >
                     {/* Active Indicator */}
-                    {activeSection === item.id && (
+                    {pathname === item.href && (
                       <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-amber-600 to-amber-700 rounded-r-full" />
                     )}
 
