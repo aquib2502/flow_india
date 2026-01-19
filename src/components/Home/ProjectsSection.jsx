@@ -9,7 +9,7 @@ const mockData = {
       title: "Corporate Office Complex",
       description: "Complete MEP infrastructure for a 12-story commercial building with advanced climate control systems.",
       category: "Commercial",
-      image: "corporate-office.jpg"
+      image: "./corporate-office.jpg"
     },
     {
       title: "Luxury Residential Tower",
@@ -74,9 +74,9 @@ const ProjectsSection = () => {
     <section className="relative py-24 lg:py-32 bg-white overflow-hidden">
       {/* Subtle background accent */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-500/20 to-transparent" />
-      
+
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
-        
+
         {/* Header */}
         <motion.div
           className="text-center mb-16 lg:mb-20"
@@ -94,14 +94,14 @@ const ProjectsSection = () => {
           >
             PROJECTS
           </motion.div>
-          
+
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-slate-900 tracking-tight mb-4">
             Infrastructure that{' '}
             <span className="relative inline-block">
               <span className="relative z-10 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
                 Inspires
               </span>
-              <motion.span 
+              <motion.span
                 className="absolute bottom-2 left-0 right-0 h-3 bg-amber-500/20 -z-0"
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
@@ -110,7 +110,7 @@ const ProjectsSection = () => {
               />
             </span>
           </h2>
-          
+
           <motion.p
             className="text-base text-slate-600 max-w-2xl mx-auto"
             initial={{ opacity: 0 }}
@@ -138,17 +138,22 @@ const ProjectsSection = () => {
               whileHover={{ y: -12 }}
             >
               {/* Image Container */}
-              <div className="relative w-full h-[320px] bg-gradient-to-br from-slate-200 via-slate-100 to-slate-50 overflow-hidden">
-                {/* Placeholder gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-slate-800 via-slate-700 to-slate-600">
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent"
-                    initial={{ opacity: 0.6 }}
-                    whileHover={{ opacity: 0.8 }}
-                    transition={{ duration: 0.4 }}
-                  />
-                </div>
-                
+              <div className="relative w-full h-[320px] overflow-hidden">
+                {/* Actual Image */}
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+
+                {/* Dark Overlay for readability */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent"
+                  initial={{ opacity: 0.6 }}
+                  whileHover={{ opacity: 0.8 }}
+                  transition={{ duration: 0.4 }}
+                />
+
                 {/* Category Badge */}
                 <div className="absolute top-6 left-6 z-10">
                   <motion.div
@@ -170,7 +175,7 @@ const ProjectsSection = () => {
 
               {/* Content */}
               <div className="p-8">
-                <motion.h3 
+                <motion.h3
                   className="text-xl lg:text-2xl font-bold text-slate-900 mb-3 group-hover:text-slate-800 transition-colors"
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
@@ -179,7 +184,7 @@ const ProjectsSection = () => {
                 >
                   {project.title}
                 </motion.h3>
-                
+
                 <p className="text-sm leading-relaxed text-slate-600 mb-6">
                   {project.description}
                 </p>
@@ -223,7 +228,7 @@ const ProjectsSection = () => {
               whileHover={{ x: '100%' }}
               transition={{ duration: 0.6 }}
             />
-            
+
             <span className="relative z-10">Explore All Projects</span>
             <ArrowRight className="relative z-10 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
           </motion.button>
