@@ -212,43 +212,7 @@ export default function HeroSection() {
         </motion.div>
       </motion.div>
 
-      {/* Stats Section - Clean and Professional */}
-      <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mt-24 max-w-6xl w-full z-10"
-        variants={staggerContainer}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-      >
-        {mockData.stats.map((stat, index) => {
-          const Icon = stat.icon;
-          return (
-            <motion.div
-              key={index}
-              className="text-center p-8 bg-white/5 backdrop-blur-md border border-white/10 shadow-2xl transition-all duration-300 rounded-sm group cursor-pointer"
-              variants={statCardVariant}
-              whileHover={{ 
-                y: -6,
-                backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                borderColor: 'rgba(255, 255, 255, 0.2)',
-                transition: { duration: 0.3 }
-              }}
-              style={{ willChange: 'transform' }}
-            >
-              <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-amber-400/10 to-amber-600/10 rounded-full mb-5 group-hover:from-amber-400/20 group-hover:to-amber-600/20 transition-all duration-300">
-                <Icon className="w-7 h-7 text-amber-300/90" strokeWidth={1.5} />
-              </div>
-              
-              <div className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-amber-200 via-amber-300 to-yellow-200 bg-clip-text text-transparent mb-3 tracking-tight">
-                {stat.value}
-              </div>
-              
-              <div className="text-sm text-white/75 font-medium tracking-wide">
-                {stat.label}
-              </div>
-            </motion.div>
-          );
-        })}
-      </motion.div>
+
     </section>
   );
 }

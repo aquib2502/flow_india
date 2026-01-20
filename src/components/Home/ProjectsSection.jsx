@@ -1,240 +1,222 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
-import { ArrowRight } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { MapPin, Building2, Sparkles, ChevronRight } from 'lucide-react';
 
-const mockData = {
-  projects: [
-    {
-      title: "Corporate Office Complex",
-      description: "Complete MEP infrastructure for a 12-story commercial building with advanced climate control systems.",
-      category: "Commercial",
-      image: "./corporate-office.jpg"
-    },
-    {
-      title: "Luxury Residential Tower",
-      description: "Integrated electrical and plumbing solutions for high-end residential development.",
-      category: "Residential",
-      image: "project2.jpg"
-    },
-    {
-      title: "Healthcare Facility",
-      description: "Critical MEP systems for a modern healthcare center with backup power infrastructure.",
-      category: "Healthcare",
-      image: "project3.jpg"
-    },
-    {
-      title: "Industrial Warehouse",
-      description: "Heavy-duty electrical distribution and ventilation for large-scale industrial operations.",
-      category: "Industrial",
-      image: "project4.jpg"
-    },
-    {
-      title: "Educational Campus",
-      description: "Comprehensive HVAC and fire protection systems for educational institutions.",
-      category: "Education",
-      image: "project5.jpg"
-    },
-    {
-      title: "Retail Plaza",
-      description: "Energy-efficient MEP design for multi-tenant retail and entertainment complex.",
-      category: "Retail",
-      image: "project6.jpg"
-    }
-  ]
-};
+const projectsData = [
+  { name: "Renne Cosmetics", location: "Lulu Mall, Lucknow", category: "Commercial", color: "from-blue-500 to-cyan-500" },
+  { name: "EXL Service", location: "Noida", category: "Commercial", color: "from-indigo-500 to-blue-500" },
+  { name: "HCL Tech", location: "Gurugram", category: "Commercial", color: "from-violet-500 to-purple-500" },
+  { name: "Genpect", location: "Noida", category: "Industrial", color: "from-slate-600 to-slate-800" },
+  { name: "Hotel India Awadh", location: "Lucknow", category: "Hospitality", color: "from-amber-500 to-orange-500" },
+  { name: "Masala Darbar", location: "Lucknow", category: "Hospitality", color: "from-rose-500 to-pink-500" },
+  { name: "The Radiant Resort", location: "Gorakhpur", category: "Hospitality", color: "from-emerald-500 to-teal-500" },
+  { name: "Forest Club", location: "Gorakhpur", category: "Hospitality", color: "from-green-500 to-emerald-500" },
+  { name: "Pind Balluchi", location: "Gorakhpur", category: "Hospitality", color: "from-red-500 to-orange-500" },
+  { name: "Royal Residency", location: "Gorakhpur", category: "Hospitality", color: "from-purple-500 to-pink-500" },
+  { name: "Military Engineer Service", location: "Gorakhpur", category: "Government", color: "from-slate-700 to-slate-900" },
+  { name: "Sandooz", location: "Amritsar", category: "Hospitality", color: "from-amber-600 to-yellow-500" },
+  { name: "Sandooz", location: "Janakpuri, Delhi", category: "Hospitality", color: "from-orange-500 to-amber-500" },
+  { name: "Sandooz Base Kitchen", location: "Shakurpur, Delhi", category: "Hospitality", color: "from-amber-500 to-orange-600" },
+  { name: "Neoba", location: "Pacific Mall, Delhi", category: "Commercial", color: "from-cyan-500 to-blue-500" },
+  { name: "Sandooz", location: "Gurugram", category: "Hospitality", color: "from-yellow-500 to-amber-600" },
+  { name: "Private Hospital", location: "Gurugram", category: "Healthcare", color: "from-teal-500 to-cyan-500" }
+];
 
 const ProjectsSection = () => {
-  const router = useRouter();
+  const [scrollY, setScrollY] = useState(0);
+  const sectionRef = useRef(null);
+  const [isInView, setIsInView] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.1
-      }
-    }
-  };
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.7,
-        ease: [0.16, 1, 0.3, 1]
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+      
+      const rect = sectionRef.current.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight && rect.bottom > 0;
+      setIsInView(inView);
+      
+      if (inView) {
+        const relativeScroll = window.innerHeight - rect.top;
+        setScrollY(relativeScroll);
       }
-    }
-  };
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Create infinite loop arrays
+  const row1Data = [...projectsData.slice(0, 6), ...projectsData.slice(0, 6)];
+  const row2Data = [...projectsData.slice(6, 12), ...projectsData.slice(6, 12)];
+  const row3Data = [...projectsData.slice(12), ...projectsData.slice(0, 5), ...projectsData.slice(12), ...projectsData.slice(0, 5)];
 
   return (
-    <section className="relative py-24 lg:py-32 bg-white overflow-hidden">
-      {/* Subtle background accent */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-500/20 to-transparent" />
+    <section ref={sectionRef} className="relative py-20 bg-white overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-50 to-white opacity-50" />
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-16">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-3 mb-4">
+            <div className="flex gap-1">
+              {[...Array(3)].map((_, i) => (
+                <div
+                  key={i}
+                  className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"
+                  style={{ animationDelay: `${i * 200}ms` }}
+                />
+              ))}
+            </div>
+            <span className="text-xs font-bold tracking-[4px] uppercase text-slate-800">
+              Our Portfolio
+            </span>
+            <div className="flex gap-1">
+              {[...Array(3)].map((_, i) => (
+                <div
+                  key={i}
+                  className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"
+                  style={{ animationDelay: `${i * 200}ms` }}
+                />
+              ))}
+            </div>
+          </div>
 
-        {/* Header */}
-        <motion.div
-          className="text-center mb-16 lg:mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.div
-            className="inline-block text-xs font-bold tracking-[3px] uppercase text-amber-600 mb-4"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            PROJECTS
-          </motion.div>
-
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-slate-900 tracking-tight mb-4">
-            Infrastructure that{' '}
-            <span className="relative inline-block">
-              <span className="relative z-10 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
-                Inspires
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-3 leading-tight">
+            Delivering Excellence
+            <br />
+            <span className="relative inline-block mt-2">
+              <span className="relative z-10 bg-gradient-to-r from-amber-600 via-amber-500 to-orange-600 bg-clip-text text-transparent">
+                Across India
               </span>
-              <motion.span
-                className="absolute bottom-2 left-0 right-0 h-3 bg-amber-500/20 -z-0"
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-              />
+              <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-600/30 via-amber-500/80 to-amber-600/30 rounded-full" />
             </span>
           </h2>
 
-          <motion.p
-            className="text-base text-slate-600 max-w-2xl mx-auto"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          <p className="text-slate-600 text-lg max-w-2xl mx-auto">
+            Trusted by leading organizations across multiple sectors
+          </p>
+        </div>
+      </div>
+
+      {/* Scrolling Grid */}
+      <div className="relative space-y-4 sm:space-y-6 mb-12 sm:mb-16">
+        {/* Row 1 - Moves Right on scroll */}
+        <div className="overflow-hidden">
+          <div 
+            className="flex gap-4 sm:gap-6 will-change-transform"
+            style={{
+              transform: isInView ? `translateX(${-scrollY * (isMobile ? 0.15 : 0.3)}px)` : 'translateX(0px)',
+              transition: 'transform 0.1s linear'
+            }}
           >
-            Delivering excellence across diverse sectors with precision engineering
-          </motion.p>
-        </motion.div>
+            {row1Data.map((project, index) => (
+              <ProjectCard key={`row1-${index}`} project={project} index={index} />
+            ))}
+          </div>
+        </div>
 
-        {/* Projects Grid */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          {mockData.projects.map((project, index) => (
-            <motion.div
-              key={index}
-              className="group relative bg-white overflow-hidden transition-all duration-500 border border-slate-200/60 hover:border-slate-300 shadow-sm hover:shadow-2xl"
-              variants={fadeInUp}
-              whileHover={{ y: -12 }}
-            >
-              {/* Image Container */}
-              <div className="relative w-full h-[320px] overflow-hidden">
-                {/* Actual Image */}
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-
-                {/* Dark Overlay for readability */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent"
-                  initial={{ opacity: 0.6 }}
-                  whileHover={{ opacity: 0.8 }}
-                  transition={{ duration: 0.4 }}
-                />
-
-                {/* Category Badge */}
-                <div className="absolute top-6 left-6 z-10">
-                  <motion.div
-                    className="bg-white/95 backdrop-blur-sm text-slate-900 px-4 py-2 text-xs font-bold tracking-wider uppercase shadow-lg border border-slate-200/50"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    {project.category}
-                  </motion.div>
-                </div>
-
-                {/* Hover Overlay */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-t from-amber-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                />
-
-                {/* Corner Accent */}
-                <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-amber-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </div>
-
-              {/* Content */}
-              <div className="p-8">
-                <motion.h3
-                  className="text-xl lg:text-2xl font-bold text-slate-900 mb-3 group-hover:text-slate-800 transition-colors"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-                >
-                  {project.title}
-                </motion.h3>
-
-                <p className="text-sm leading-relaxed text-slate-600 mb-6">
-                  {project.description}
-                </p>
-
-                {/* View Details Link */}
-                <motion.div
-                  className="flex items-center gap-2 text-sm font-semibold text-slate-700 group-hover:text-amber-600 transition-colors"
-                  whileHover={{ x: 5 }}
-                >
-                  <span>View Details</span>
-                  <ArrowRight className="w-4 h-4" />
-                </motion.div>
-              </div>
-
-              {/* Bottom Border Accent */}
-              <motion.div
-                className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 to-orange-500 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
-              />
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* CTA Button */}
-        <motion.div
-          className="text-center mt-16 lg:mt-20"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-        >
-          <motion.button
-            onClick={() => router.push('/projects')}
-            className="group relative inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-semibold text-base rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.98 }}
+        {/* Row 2 - Moves Left on scroll (opposite direction) */}
+        <div className="overflow-hidden">
+          <div 
+            className="flex gap-4 sm:gap-6 will-change-transform"
+            style={{
+              transform: isInView 
+                ? `translateX(calc(${isMobile ? '-200px' : '-400px'} + ${scrollY * (isMobile ? 0.15 : 0.3)}px))` 
+                : `translateX(${isMobile ? '-200px' : '-400px'})`,
+              transition: 'transform 0.1s linear'
+            }}
           >
-            {/* Shine Effect */}
-            <motion.span
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-              initial={{ x: '-100%' }}
-              whileHover={{ x: '100%' }}
-              transition={{ duration: 0.6 }}
-            />
+            {row2Data.map((project, index) => (
+              <ProjectCard key={`row2-${index}`} project={project} index={index} />
+            ))}
+          </div>
+        </div>
 
+        {/* Row 3 - Moves Right on scroll (same as row 1) */}
+        <div className="overflow-hidden">
+          <div 
+            className="flex gap-4 sm:gap-6 will-change-transform"
+            style={{
+              transform: isInView ? `translateX(${-scrollY * (isMobile ? 0.15 : 0.3)}px)` : 'translateX(0px)',
+              transition: 'transform 0.1s linear'
+            }}
+          >
+            {row3Data.map((project, index) => (
+              <ProjectCard key={`row3-${index}`} project={project} index={index} />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mt-12">
+          <button className="group relative inline-flex items-center gap-3 px-8 py-4 bg-slate-900 text-white font-semibold rounded-xl overflow-hidden hover:scale-105 transition-all duration-300 shadow-xl">
+            <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <Sparkles className="relative z-10 w-5 h-5" />
             <span className="relative z-10">Explore All Projects</span>
-            <ArrowRight className="relative z-10 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-          </motion.button>
-        </motion.div>
+            <ChevronRight className="relative z-10 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+          </button>
+        </div>
       </div>
     </section>
+  );
+};
+
+const ProjectCard = ({ project, index }) => {
+  return (
+    <div className="flex-shrink-0 w-72 sm:w-80 lg:w-96">
+      <div className="group relative h-56 sm:h-64 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+        <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-90`} />
+        
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_50%)]" />
+
+        <div className="relative h-full p-4 sm:p-5 flex flex-col justify-between z-10">
+          <div>
+            <div className="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 bg-white/20 backdrop-blur-sm rounded-full mb-2 sm:mb-3 border border-white/30">
+              <Building2 className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-white" />
+              <span className="text-[10px] sm:text-xs font-bold text-white uppercase tracking-wider">
+                {project.category}
+              </span>
+            </div>
+
+            <div className="mb-2">
+              <div className="text-3xl sm:text-4xl font-bold text-white/20 mb-1">
+                {String(index + 1).padStart(2, '0')}
+              </div>
+              <h3 className="text-lg sm:text-xl font-bold text-white leading-tight group-hover:scale-105 transition-transform duration-300">
+                {project.name}
+              </h3>
+            </div>
+          </div>
+
+          <div>
+            <div className="flex items-start gap-2 group-hover:translate-x-1 transition-transform duration-300">
+              <MapPin className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-white/80 flex-shrink-0 mt-0.5" />
+              <p className="text-white/90 text-xs sm:text-sm leading-relaxed">
+                {project.location}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="absolute top-0 left-0 w-10 sm:w-12 h-10 sm:h-12 border-t-2 border-l-2 border-white/30 rounded-tl-xl" />
+        <div className="absolute bottom-0 right-0 w-10 sm:w-12 h-10 sm:h-12 border-b-2 border-r-2 border-white/30 rounded-br-xl" />
+        
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
+      </div>
+    </div>
   );
 };
 

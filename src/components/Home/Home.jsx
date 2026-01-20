@@ -14,6 +14,8 @@ import EnhancedAboutSection from './AboutSection';
 import FlowIndiaAboutSection from './AboutSection';
 import ProjectsSection from './ProjectsSection';
 import HeroSection from './HeroSection';
+import CTASection from './ContactSection';
+import WhyChooseUsSection from './TrustSection';
 
 // Mock Data
 const mockData = {
@@ -167,50 +169,10 @@ const Home = () => {
       <ProjectsSection />
 
       {/* Trust Section */}
-      <section className="py-24 lg:py-32 bg-slate-900 text-white">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="text-xs font-bold tracking-[2px] uppercase text-amber-500 mb-4">
-              WHY CHOOSE US
-            </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-white mb-12 lg:mb-16 tracking-tight max-w-3xl">
-              Built on Trust, Driven by Excellence
-            </h2>
-          </motion.div>
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mt-12 lg:mt-16"
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            {mockData.trustFactors.map((factor, index) => (
-              <motion.div
-                key={index}
-                variants={fadeInUp}
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <div className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-amber-500 to-amber-600 bg-clip-text text-transparent mb-4 opacity-80">
-                  {index + 1}
-                </div>
-                <h3 className="text-xl lg:text-[22px] font-bold mb-3">{factor.title}</h3>
-                <p className="text-sm lg:text-[15px] leading-relaxed text-white/70">
-                  {factor.description}
-                </p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+      <WhyChooseUsSection />
 
       {/* Contact Section */}
-      <section id="contact" className="py-24 lg:py-32 bg-gradient-to-b from-amber-50 to-white">
+      {/* <section id="contact" className="py-24 lg:py-32 bg-gradient-to-b from-amber-50 to-white">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
             <motion.div
@@ -353,9 +315,9 @@ const Home = () => {
             </motion.div>
           </div>
         </div>
-      </section>
-
-      <Footer scrollToSection={scrollToSection} />
+      </section> */}
+      <CTASection />
+        <Footer scrollToSection={scrollToSection} />
     </div>
   );
 };
