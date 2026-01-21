@@ -100,64 +100,7 @@ const CTASection = () => {
           </div>
 
           {/* Contact Information */}
-          <div className="border-t border-slate-700/50 pt-12">
-            <p className="text-sm text-slate-400 mb-8">
-              Or reach out directly – we're always happy to hear from you
-            </p>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
-              {/* Phone */}
-              <a 
-                href="tel:+918077382865"
-                className="group flex flex-col items-center gap-3 p-6 rounded-2xl bg-slate-800/30 border border-slate-700/50 backdrop-blur-sm transition-all duration-300 hover:bg-slate-800/50 hover:border-amber-500/50 hover:scale-105"
-              >
-                <div className="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center group-hover:bg-amber-500/20 transition-colors duration-300">
-                  <Phone className="w-5 h-5 text-amber-500" />
-                </div>
-                <div className="text-center">
-                  <div className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">
-                    Call Us
-                  </div>
-                  <div className="text-sm font-semibold text-white group-hover:text-amber-400 transition-colors duration-300">
-                    +91 80773 82865
-                  </div>
-                </div>
-              </a>
-
-              {/* Email */}
-              <a 
-                href="mailto:flowrashid38@gmail.com"
-                className="group flex flex-col items-center gap-3 p-6 rounded-2xl bg-slate-800/30 border border-slate-700/50 backdrop-blur-sm transition-all duration-300 hover:bg-slate-800/50 hover:border-amber-500/50 hover:scale-105"
-              >
-                <div className="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center group-hover:bg-amber-500/20 transition-colors duration-300">
-                  <Mail className="w-5 h-5 text-amber-500" />
-                </div>
-                <div className="text-center">
-                  <div className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">
-                    Email Us
-                  </div>
-                  <div className="text-sm font-semibold text-white group-hover:text-amber-400 transition-colors duration-300 break-all px-2">
-                    flowrashid38@gmail.com
-                  </div>
-                </div>
-              </a>
-
-              {/* Location */}
-              <div className="group flex flex-col items-center gap-3 p-6 rounded-2xl bg-slate-800/30 border border-slate-700/50 backdrop-blur-sm transition-all duration-300 hover:bg-slate-800/50 hover:border-amber-500/50 hover:scale-105">
-                <div className="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center group-hover:bg-amber-500/20 transition-colors duration-300">
-                  <MapPin className="w-5 h-5 text-amber-500" />
-                </div>
-                <div className="text-center">
-                  <div className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">
-                    Visit Us
-                  </div>
-                  <div className="text-sm font-semibold text-white group-hover:text-amber-400 transition-colors duration-300">
-                    Jasola Vihar, New Delhi
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+  
 
           {/* Bottom Tagline */}
           <div className="mt-12">
