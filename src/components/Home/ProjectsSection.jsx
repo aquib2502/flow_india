@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { MapPin, Building2, Sparkles, ChevronRight } from 'lucide-react';
+import { MapPin, Building2, Sparkles, ChevronRight, X } from 'lucide-react';
 
 const projectsData = [
   { name: "Renne Cosmetics", location: "Lulu Mall, Lucknow", category: "Commercial", color: "from-blue-500 to-cyan-500" },
@@ -23,6 +23,7 @@ const projectsData = [
 
 const ProjectsSection = () => {
   const [scrollY, setScrollY] = useState(0);
+  const [showAll, setShowAll] = useState(false);
   const sectionRef = useRef(null);
   const [isInView, setIsInView] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -64,113 +65,206 @@ const ProjectsSection = () => {
   const row3Data = [...projectsData.slice(12), ...projectsData.slice(0, 5), ...projectsData.slice(12), ...projectsData.slice(0, 5)];
 
   return (
-    <section ref={sectionRef} className="relative py-20 bg-white overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-50 to-white opacity-50" />
+    <>
+      <section ref={sectionRef} className="relative py-20 bg-white overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-50 to-white opacity-50" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-16">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-3 mb-4">
-            <div className="flex gap-1">
-              {[...Array(3)].map((_, i) => (
-                <div
-                  key={i}
-                  className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"
-                  style={{ animationDelay: `${i * 200}ms` }}
-                />
-              ))}
-            </div>
-            <span className="text-xs font-bold tracking-[4px] uppercase text-slate-800">
-              Our Portfolio
-            </span>
-            <div className="flex gap-1">
-              {[...Array(3)].map((_, i) => (
-                <div
-                  key={i}
-                  className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"
-                  style={{ animationDelay: `${i * 200}ms` }}
-                />
-              ))}
-            </div>
-          </div>
-
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-3 leading-tight">
-            Delivering Excellence
-            <br />
-            <span className="relative inline-block mt-2">
-              <span className="relative z-10 bg-gradient-to-r from-amber-600 via-amber-500 to-orange-600 bg-clip-text text-transparent">
-                Across India
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-16">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-3 mb-4">
+              <div className="flex gap-1">
+                {[...Array(3)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"
+                    style={{ animationDelay: `${i * 200}ms` }}
+                  />
+                ))}
+              </div>
+              <span className="text-xs font-bold tracking-[4px] uppercase text-slate-800">
+                Our Portfolio
               </span>
-              <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-600/30 via-amber-500/80 to-amber-600/30 rounded-full" />
-            </span>
-          </h2>
+              <div className="flex gap-1">
+                {[...Array(3)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"
+                    style={{ animationDelay: `${i * 200}ms` }}
+                  />
+                ))}
+              </div>
+            </div>
 
-          <p className="text-slate-600 text-lg max-w-2xl mx-auto">
-            Trusted by leading organizations across multiple sectors
-          </p>
-        </div>
-      </div>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-3 leading-tight">
+              Delivering Excellence
+              <br />
+              <span className="relative inline-block mt-2">
+                <span className="relative z-10 bg-gradient-to-r from-amber-600 via-amber-500 to-orange-600 bg-clip-text text-transparent">
+                  Across India
+                </span>
+                <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-amber-600/30 via-amber-500/80 to-amber-600/30 rounded-full" />
+              </span>
+            </h2>
 
-      {/* Scrolling Grid */}
-      <div className="relative space-y-4 sm:space-y-6 mb-12 sm:mb-16">
-        {/* Row 1 - Moves Right on scroll */}
-        <div className="overflow-hidden">
-          <div 
-            className="flex gap-4 sm:gap-6 will-change-transform"
-            style={{
-              transform: isInView ? `translateX(${-scrollY * (isMobile ? 0.15 : 0.3)}px)` : 'translateX(0px)',
-              transition: 'transform 0.1s linear'
-            }}
-          >
-            {row1Data.map((project, index) => (
-              <ProjectCard key={`row1-${index}`} project={project} index={index} />
-            ))}
+            <p className="text-slate-600 text-lg max-w-2xl mx-auto">
+              Trusted by leading organizations across multiple sectors
+            </p>
           </div>
         </div>
 
-        {/* Row 2 - Moves Left on scroll (opposite direction) */}
-        <div className="overflow-hidden">
-          <div 
-            className="flex gap-4 sm:gap-6 will-change-transform"
-            style={{
-              transform: isInView 
-                ? `translateX(calc(${isMobile ? '-200px' : '-400px'} + ${scrollY * (isMobile ? 0.15 : 0.3)}px))` 
-                : `translateX(${isMobile ? '-200px' : '-400px'})`,
-              transition: 'transform 0.1s linear'
-            }}
-          >
-            {row2Data.map((project, index) => (
-              <ProjectCard key={`row2-${index}`} project={project} index={index} />
-            ))}
+        {/* Scrolling Grid */}
+        <div className="relative space-y-4 sm:space-y-6 mb-12 sm:mb-16">
+          {/* Row 1 - Moves Right on scroll */}
+          <div className="overflow-hidden">
+            <div 
+              className="flex gap-4 sm:gap-6 will-change-transform"
+              style={{
+                transform: isInView ? `translateX(${-scrollY * (isMobile ? 0.15 : 0.3)}px)` : 'translateX(0px)',
+                transition: 'transform 0.1s linear'
+              }}
+            >
+              {row1Data.map((project, index) => (
+                <ProjectCard key={`row1-${index}`} project={project} index={index} />
+              ))}
+            </div>
+          </div>
+
+          {/* Row 2 - Moves Left on scroll (opposite direction) */}
+          <div className="overflow-hidden">
+            <div 
+              className="flex gap-4 sm:gap-6 will-change-transform"
+              style={{
+                transform: isInView 
+                  ? `translateX(calc(${isMobile ? '-200px' : '-400px'} + ${scrollY * (isMobile ? 0.15 : 0.3)}px))` 
+                  : `translateX(${isMobile ? '-200px' : '-400px'})`,
+                transition: 'transform 0.1s linear'
+              }}
+            >
+              {row2Data.map((project, index) => (
+                <ProjectCard key={`row2-${index}`} project={project} index={index + 6} />
+              ))}
+            </div>
+          </div>
+
+          {/* Row 3 - Moves Right on scroll (same as row 1) */}
+          <div className="overflow-hidden">
+            <div 
+              className="flex gap-4 sm:gap-6 will-change-transform"
+              style={{
+                transform: isInView ? `translateX(${-scrollY * (isMobile ? 0.15 : 0.3)}px)` : 'translateX(0px)',
+                transition: 'transform 0.1s linear'
+              }}
+            >
+              {row3Data.map((project, index) => (
+                <ProjectCard key={`row3-${index}`} project={project} index={index + 12} />
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Row 3 - Moves Right on scroll (same as row 1) */}
-        <div className="overflow-hidden">
-          <div 
-            className="flex gap-4 sm:gap-6 will-change-transform"
-            style={{
-              transform: isInView ? `translateX(${-scrollY * (isMobile ? 0.15 : 0.3)}px)` : 'translateX(0px)',
-              transition: 'transform 0.1s linear'
-            }}
-          >
-            {row3Data.map((project, index) => (
-              <ProjectCard key={`row3-${index}`} project={project} index={index} />
-            ))}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mt-12">
+            <button 
+              onClick={() => setShowAll(true)}
+              className="group relative inline-flex items-center gap-3 px-8 py-4 bg-slate-900 text-white font-semibold rounded-xl overflow-hidden hover:scale-105 transition-all duration-300 shadow-xl"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <Sparkles className="relative z-10 w-5 h-5" />
+              <span className="relative z-10">View All {projectsData.length} Projects</span>
+              <ChevronRight className="relative z-10 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+            </button>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mt-12">
-          <button className="group relative inline-flex items-center gap-3 px-8 py-4 bg-slate-900 text-white font-semibold rounded-xl overflow-hidden hover:scale-105 transition-all duration-300 shadow-xl">
-            <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <Sparkles className="relative z-10 w-5 h-5" />
-            <span className="relative z-10">Explore All Projects</span>
-            <ChevronRight className="relative z-10 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-          </button>
+      {/* Full Screen Modal with All Projects */}
+      {showAll && (
+        <div className="fixed inset-0 z-[9999] bg-slate-900/95 backdrop-blur-md overflow-y-auto">
+          <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+            {/* Header */}
+            <div className="max-w-7xl mx-auto mb-12">
+              <div className="flex items-center justify-between mb-8">
+                <div>
+                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-2">
+                    Complete Portfolio
+                  </h2>
+                  <p className="text-white/70 text-lg">
+                    {projectsData.length} projects delivered with excellence
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowAll(false)}
+                  className="group p-3 bg-white/10 hover:bg-white/20 rounded-xl transition-all duration-300 backdrop-blur-sm border border-white/20"
+                  aria-label="Close"
+                >
+                  <X className="w-6 h-6 text-white group-hover:rotate-90 transition-transform duration-300" />
+                </button>
+              </div>
+            </div>
+
+            {/* Grid of All Projects */}
+            <div className="max-w-7xl mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {projectsData.map((project, index) => (
+                  <div
+                    key={index}
+                    className="animate-fade-in-up"
+                    style={{ 
+                      animationDelay: `${index * 50}ms`,
+                      
+                      animation: `fadeInUp 0.6s ease-out ${index * 50}ms forwards`
+                    }}
+                  >
+                    <div className="group relative h-64 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]">
+                      <div className={`absolute inset-0 bg-gradient-to-br ${project.color}`} />
+                      
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_50%)]" />
+
+                      <div className="relative h-full p-5 flex flex-col justify-between z-10">
+                        <div>
+                          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-full mb-3 border border-white/30">
+                            <Building2 className="w-3.5 h-3.5 text-white" />
+                            <span className="text-xs font-bold text-white uppercase tracking-wider">
+                              {project.category}
+                            </span>
+                          </div>
+
+                          <div className="mb-2">
+                            <div className="text-4xl font-bold text-white/20 mb-1">
+                              {String(index + 1).padStart(2, '0')}
+                            </div>
+                            <h3 className="text-xl font-bold text-white leading-tight group-hover:scale-105 transition-transform duration-300">
+                              {project.name}
+                            </h3>
+                          </div>
+                        </div>
+
+                        <div>
+                          <div className="flex items-start gap-2 group-hover:translate-x-1 transition-transform duration-300">
+                            <MapPin className="w-4 h-4 text-white/80 flex-shrink-0 mt-0.5" />
+                            <p className="text-white/90 text-sm leading-relaxed">
+                              {project.location}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-white/30 rounded-tl-xl" />
+                      <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-white/30 rounded-br-xl" />
+                      
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Bottom spacing */}
+            <div className="h-12" />
+          </div>
         </div>
-      </div>
-    </section>
+      )}
+    </>
   );
 };
 
