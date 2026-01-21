@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
 
@@ -62,7 +64,7 @@ const Footer = ({ scrollToSection }) => {
               </a>
 
               <a 
-                href="mailto:flowrashid38@gmail.com" 
+                href="mailto:info@flowindiaprojects.com" 
                 className="group flex flex-col items-center text-center p-4 rounded-xl bg-white border border-slate-200 hover:border-amber-300 hover:shadow-md transition-all duration-200"
               >
                 <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform duration-200">
@@ -72,7 +74,7 @@ const Footer = ({ scrollToSection }) => {
                   Email Us
                 </div>
                 <div className="text-xs font-bold text-slate-900 group-hover:text-amber-600 transition-colors duration-200 break-all px-1">
-                  flowrashid38@gmail.com
+                  info@flowindiaprojects.com
                 </div>
               </a>
 

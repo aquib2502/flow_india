@@ -221,10 +221,10 @@ const Home = () => {
                       Email Us
                     </div>
                     <a
-                      href="mailto:flowrashid38@gmail.com"
+                      href="mailto:info@flowindiaprojects.com"
                       className="text-base font-semibold text-slate-900 no-underline transition-colors duration-200 hover:text-amber-600 break-all"
                     >
-                      flowrashid38@gmail.com
+                      info@flowindiaprojects.com
                     </a>
                   </div>
                 </motion.div>
