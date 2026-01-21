@@ -154,7 +154,6 @@ const Home = () => {
 
   return (
     <div className="font-sans bg-gradient-to-b from-amber-50 to-white text-slate-900 overflow-x-hidden antialiased">
-      <Navbar />
 
       {/* Hero Section */}
       <HeroSection />
@@ -317,7 +316,6 @@ const Home = () => {
         </div>
       </section> */}
       <CTASection />
-        <Footer scrollToSection={scrollToSection} />
     </div>
   );
 };

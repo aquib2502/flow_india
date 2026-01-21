@@ -48,7 +48,6 @@ const AboutUs = () => {
   return (
   <>
 
-      <Navbar forceWhite={true} />
 
       {/* Hero Section */}
       <section className="relative min-h-dvh flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-16 sm:pb-24 overflow-hidden bg-slate-950">
@@ -483,7 +482,6 @@ const AboutUs = () => {
         </div>
       </section>
           
-      <Footer scrollToSection={scrollToSection} />
   </>  
 );
 };
