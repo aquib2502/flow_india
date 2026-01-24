@@ -31,8 +31,8 @@ export default function ContactPage() {
 
   try {
     await emailjs.send(
-      "service_215smxe",        // your service ID
-      "template_aa6d6fb",       // your template ID
+      "service_ebcooeu",        // your service ID
+      "template_8c9jryg",       // your template ID
       {
         name: formData.name,
         email: formData.email,
@@ -41,7 +41,7 @@ export default function ContactPage() {
         interest: formData.interest,
         message: formData.message,
       },
-      "XjGainrcZeRNoYkr_"       // your PUBLIC KEY — must be a string
+      "8vIwj0zb_Y1XioY4n"       // your PUBLIC KEY — must be a string
     );
 
     setSubmitStatus("success");
@@ -79,7 +79,8 @@ export default function ContactPage() {
             {/* Hero Section with Background Image */}
             <div className="relative h-[65vh] sm:h-[70vh] md:h-[75vh] lg:h-[80vh] overflow-hidden">
                 <img
-                    src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2000"
+                    // src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2000"
+                    src="./contact_img.jpg"
                     alt="Contact Us"
                     className="absolute inset-0 w-full h-full object-cover"
                 />
